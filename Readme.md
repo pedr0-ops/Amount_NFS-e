@@ -13,7 +13,8 @@ Software desenvolvido em Nodejs que ler arquivos PDF para procurar e imprimir va
 
 Necessita ter instalado as seguintes bibliotecas do Nodejs:
 
-- 
+- pdf-parse
+- fs
 
 
 ### 🛠 Tecnologias

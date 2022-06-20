@@ -1,0 +1,27 @@
+{
+  "name": "getmonetaryvalues",
+  "version": "1.0.0",
+  "description": "Ler arquivos PDF para procurar e imprimir valores monetários em R$.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedr0-ops/GetMonetaryValue.git"
+  },
+  "keywords": [],
+  "author": "Gold Chance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedr0-ops/GetMonetaryValue/issues"
+  },
+  "homepage": "https://github.com/pedr0-ops/GetMonetaryValue#readme",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0",
+    "pdf-parse": "^1.1.1",
+    "pdfreader": "^2.0.0"
+  }
+}
