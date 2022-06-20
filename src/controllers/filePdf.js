@@ -8,21 +8,21 @@ class FilePdf {
     this.#pathFile = pathFile;
   }
 
-  getMonetaryText() {
+  readTextPdf() {
     pdfParse(this.pathFile)
-      .then((monetaryValues) => {
-        this.#showMonetaryValues(monetaryValues);
+      .then((pdfText) => {
+        this.#showMonetaryValues(pdfText);
       })
       .catch(() => {
         console.log("Arquivo Não Existe!");
       });
   }
 
-  #filterMonetaryValues(monetaryValues) {
-    const values = monetaryValues.text.match(
+  #filterMonetaryValues(pdfText) {
+    const monetaryValues = pdfText.text.match(
       /R\s?\$\s?(\d{1,3}.)?(\d{3}.)*(\d{1,3})(,\d{2})?/gm
     );
-    return values;
+    return monetaryValues;
   }
 
   #showMonetaryValues(monetaryValues) {
@@ -37,7 +37,6 @@ class FilePdf {
   set pathFile(newPathFile) {
     this.#pathFile = newPathFile;
   }
-
 }
 
 module.exports = { FilePdf };
