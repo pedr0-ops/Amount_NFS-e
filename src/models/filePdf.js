@@ -1,5 +1,6 @@
 const pdfParse = require("pdf-parse");
-const fs = require('fs');
+const fs = require("fs");
+
 class FilePdf {
   #pathFile;
 
@@ -7,29 +8,25 @@ class FilePdf {
     this.#pathFile = pathFile;
   }
 
-   readTextPdf() {
-
+  async readTextPdf() {
     try {
       const databuffer = fs.readFileSync(this.#pathFile);
-      const pdf =  pdfParse(databuffer);
-      return this.filterMonetaryValues(pdf);
-
+      const pdf = await pdfParse(databuffer);
+      return this.#filterMonetaryValues(pdf);
     } catch (error) {
-      console.log("Arquivo Não Existe!");
+      if (error.code == "ENOENT") {
+        return "Erro no caminho do arquivo";
+      } else {
+        return "erro desconhecido";
+      }
     }
-
   }
 
-  filterMonetaryValues(pdfText) {
+  #filterMonetaryValues(pdfText) {
     const monetaryValues = pdfText.text.match(
       /R\s?\$\s?(\d{1,3}.)?(\d{3}.)*(\d{1,3})(,\d{2})?/gm
     );
     return monetaryValues;
-  }
-
-  showMonetaryValues(monetaryValues) {
-    console.log(this.#pathFile);
-    console.table(this.filterMonetaryValues(monetaryValues));
   }
 
   get pathFile() {
