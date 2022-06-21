@@ -8,10 +8,10 @@ class FilePdf {
     this.#pathFile = pathFile;
   }
 
-  async readTextPdf() {
+  async getFilteredPdf() {
     try {
-      const databuffer = fs.readFileSync(this.#pathFile);
-      const pdf = await pdfParse(databuffer);
+      const databuffer = this.#readTextPdf();
+      const pdf = await this.#convertToPdf(databuffer);
       return this.#filterMonetaryValues(pdf);
     } catch (error) {
       if (error.code == "ENOENT") {
@@ -20,6 +20,14 @@ class FilePdf {
         return "erro desconhecido";
       }
     }
+  }
+
+  #readTextPdf() {
+    return fs.readFileSync(this.#pathFile);
+  }
+
+  async #convertToPdf(databuffer) {
+    return await pdfParse(databuffer);
   }
 
   #filterMonetaryValues(pdfText) {
