@@ -4,7 +4,7 @@
   "description": "Ler arquivos PDF para procurar e imprimir valores monetários em R$.",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec",
     "start": "node index.js"
   },
   "repository": {

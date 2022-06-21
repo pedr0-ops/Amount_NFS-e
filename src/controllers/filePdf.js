@@ -1,6 +1,5 @@
 const pdfParse = require("pdf-parse");
-const fs = require("fs");
-const { CLIENT_RENEG_LIMIT } = require("tls");
+const fs = require('fs');
 class FilePdf {
   #pathFile;
 
@@ -8,26 +7,29 @@ class FilePdf {
     this.#pathFile = pathFile;
   }
 
-  readTextPdf() {
-    pdfParse(this.pathFile)
-      .then((pdfText) => {
-        this.#showMonetaryValues(pdfText);
-      })
-      .catch(() => {
-        console.log("Arquivo Não Existe!");
-      });
+   readTextPdf() {
+
+    try {
+      const databuffer = fs.readFileSync(this.#pathFile);
+      const pdf =  pdfParse(databuffer);
+      return this.filterMonetaryValues(pdf);
+
+    } catch (error) {
+      console.log("Arquivo Não Existe!");
+    }
+
   }
 
-  #filterMonetaryValues(pdfText) {
+  filterMonetaryValues(pdfText) {
     const monetaryValues = pdfText.text.match(
       /R\s?\$\s?(\d{1,3}.)?(\d{3}.)*(\d{1,3})(,\d{2})?/gm
     );
     return monetaryValues;
   }
 
-  #showMonetaryValues(monetaryValues) {
+  showMonetaryValues(monetaryValues) {
     console.log(this.#pathFile);
-    console.table(this.#filterMonetaryValues(monetaryValues));
+    console.table(this.filterMonetaryValues(monetaryValues));
   }
 
   get pathFile() {
