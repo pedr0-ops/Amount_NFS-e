@@ -4,7 +4,7 @@ const { FilePdf } = require("./src/models/filePdf.js");
 describe("testing filePdf", () => {
   it("Obtendo valores", async () => {
     const file = new FilePdf("./temp/exemplo.pdf");
-    assert.deepEqual(await file.getFilteredPdf(), [
+    assert.deepEqual(await file.getMonetaryValuesFromPdf(), [
       "R $1.500,00",
       "R $2.000,00",
       "R$2.500,00",
@@ -12,10 +12,10 @@ describe("testing filePdf", () => {
   });
   it("Verificando mensagem de erro", async () => {
     const file3 = new FilePdf("./temp/simboloerro.png");
-    assert.deepEqual(await file3.getFilteredPdf(), "erro desconhecido");
+    assert.deepEqual(await file3.getMonetaryValuesFromPdf(), "erro desconhecido");
   });
   it("Verificando mensagem de erro", async () => {
     const file3 = new FilePdf("./aleatorio/exemplo2.pdf");
-    assert.deepEqual(await file3.getFilteredPdf(), "Erro no caminho do arquivo");
+    assert.deepEqual(await file3.getMonetaryValuesFromPdf(), "Erro no caminho do arquivo");
   });
 });

@@ -1,6 +1,5 @@
 const pdfParse = require("pdf-parse");
 const fs = require("fs");
-
 class FilePdf {
   #pathFile;
 
@@ -8,7 +7,7 @@ class FilePdf {
     this.#pathFile = pathFile;
   }
 
-  async getFilteredPdf() {
+  async getMonetaryValuesFromPdf() {
     try {
       const databuffer = this.#readTextPdf();
       const pdf = await this.#convertToPdf(databuffer);
