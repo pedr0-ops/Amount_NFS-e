@@ -1,13 +1,19 @@
-const { FilePdf } = require("./filePdf.js");
+const { FileManager } = require("./src/scripts/FileManager.js");
+const fileManager = new FileManager();
 
-const file = new FilePdf("./temp/jurandir.pdf");// PDF não pesquisável
-const file1 = new FilePdf("./temp/pedro.pdf");//PDF pesquisável
-const file2 = new FilePdf("./temp/bia.pdf");//PDF pesquisável
-const file3 = new FilePdf("./temp/abrao.pdf");// PDF não pesquisável
+pathFiles =
+  [
+    "abra.pdf",
+    "bia.pdf",
+    "pedro.pdf",
+   "jurandir.pdf"
+  ]
 
-async function consoleAsync(file) {
-  console.log(await file.getMonetaryValuesFromPdf());
-}
+const brazilianCurrency = (
+  /(\(?\s?R\s?\$\s?\)?\s?\:?\s?)(\d{1,2}.)(\d{3})(,\d{2})?/g
+)
 
-consoleAsync(file3);
+pathFiles.forEach(async (path) => {
+  console.log(await fileManager.getSearchResult("./uploads/" + path, brazilianCurrency))
+});
 
